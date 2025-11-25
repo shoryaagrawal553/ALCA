@@ -14,7 +14,7 @@ class AssessmentAgent:
             return None
 
         # pick a random diagnostic question
-        return random.choice(topic_data["diagnostic"])
+        return random.choice(topic_data["diagnostic"])     
 
 
 class ExplanationAgent:
