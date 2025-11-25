@@ -1,0 +1,37 @@
+{
+  "binary search": {
+    "concept": "Binary search is a divide-and-conquer algorithm used on sorted arrays.",
+    "explanations": {
+      "beginner": "Binary search works only on sorted lists. You check the middle element, then choose the left or right half.",
+      "intermediate": "Binary search halves the search range at each step, giving O(log n) time complexity.",
+      "advanced": "Binary search relies on loop invariants and careful mid calculation to avoid overflow. Runs in O(log n)."
+    },
+    "diagnostic": [
+      {
+        "id": "d1",
+        "question": "What is the time complexity of binary search?",
+        "answer": "O(log n)"
+      }
+    ],
+    "practice": [
+      {
+        "id": "q1",
+        "difficulty": "beginner",
+        "question": "Where do you begin searching in binary search?",
+        "answer": "middle"
+      },
+      {
+        "id": "q2",
+        "difficulty": "intermediate",
+        "question": "Binary search has what worst-case time complexity?",
+        "answer": "O(log n)"
+      },
+      {
+        "id": "q3",
+        "difficulty": "advanced",
+        "question": "Why can't binary search be efficiently performed on a linked list?",
+        "answer": "no random access"
+      }
+    ]
+  }
+}

@@ -1,0 +1,781 @@
+{
+  "binary search": {
+    "concept": "Binary search is a divide-and-conquer algorithm used to find an element in a sorted list.",
+    "explanations": {
+      "beginner": "Binary search splits a sorted list in half and compares the middle element with the target.",
+      "intermediate": "Binary search repeatedly halves the search interval, giving O(log n) time complexity.",
+      "advanced": "Binary search requires careful mid calculation to avoid overflow and relies on loop invariants."
+    },
+    "diagnostic": [
+      {
+        "id": "d1",
+        "question": "Does binary search require a sorted list?",
+        "answer": "yes"
+      },
+      {
+        "id": "d2",
+        "question": "What is the time complexity of binary search?",
+        "answer": "O(log n)"
+      },
+      {
+        "id": "d3",
+        "question": "What index does binary search check first?",
+        "answer": "middle"
+      },
+      {
+        "id": "d4",
+        "question": "Binary search belongs to which paradigm?",
+        "answer": "divide and conquer"
+      },
+      {
+        "id": "d5",
+        "question": "Is binary search efficient for linked lists?",
+        "answer": "no"
+      }
+    ],
+    "practice": [
+      {
+        "id": "q1",
+        "difficulty": "beginner",
+        "question": "Where does binary search start?",
+        "answer": "middle"
+      },
+      {
+        "id": "q2",
+        "difficulty": "beginner",
+        "question": "Binary search requires the list to be?",
+        "answer": "sorted"
+      },
+      {
+        "id": "q3",
+        "difficulty": "intermediate",
+        "question": "Worst-case complexity?",
+        "answer": "O(log n)"
+      },
+      {
+        "id": "q4",
+        "difficulty": "advanced",
+        "question": "Why not use binary search on linked lists?",
+        "answer": "no random access"
+      },
+      {
+        "id": "q5",
+        "difficulty": "advanced",
+        "question": "Overflow-safe mid formula?",
+        "answer": "l + (r - l) / 2"
+      }
+    ]
+  },
+
+  "linear search": {
+    "concept": "Linear search checks elements one by one in a list.",
+    "explanations": {
+      "beginner": "Linear search goes through each element one by one.",
+      "intermediate": "Linear search is O(n) and does not require a sorted list.",
+      "advanced": "Linear search is the simplest but inefficient for large datasets."
+    },
+    "diagnostic": [
+      {
+        "id": "d1",
+        "question": "Does linear search need a sorted list?",
+        "answer": "no"
+      },
+      {
+        "id": "d2",
+        "question": "Best case time complexity?",
+        "answer": "O(1)"
+      },
+      {
+        "id": "d3",
+        "question": "Worst case time complexity?",
+        "answer": "O(n)"
+      },
+      {
+        "id": "d4",
+        "question": "Does linear search stop if element is found early?",
+        "answer": "yes"
+      },
+      {
+        "id": "d5",
+        "question": "Is linear search sequential?",
+        "answer": "yes"
+      }
+    ],
+    "practice": [
+      {
+        "id": "q1",
+        "difficulty": "beginner",
+        "question": "Linear search checks elements?",
+        "answer": "one by one"
+      },
+      {
+        "id": "q2",
+        "difficulty": "beginner",
+        "question": "Does linear search require sorting?",
+        "answer": "no"
+      },
+      {
+        "id": "q3",
+        "difficulty": "intermediate",
+        "question": "Worst-case complexity?",
+        "answer": "O(n)"
+      },
+      {
+        "id": "q4",
+        "difficulty": "advanced",
+        "question": "Is linear search good for huge datasets?",
+        "answer": "no"
+      },
+      {
+        "id": "q5",
+        "difficulty": "advanced",
+        "question": "Best-case occurs when element is at?",
+        "answer": "first position"
+      }
+    ]
+  },
+
+  "bubble sort": {
+    "concept": "Bubble sort repeatedly swaps adjacent elements if they are in the wrong order.",
+    "explanations": {
+      "beginner": "Bubble sort compares neighbors and swaps when needed.",
+      "intermediate": "Bubble sort has worst-case O(n²) but is stable.",
+      "advanced": "Optimized bubble sort uses early stopping when no swaps occur."
+    },
+    "diagnostic": [
+      {
+        "id": "d1",
+        "question": "Bubble sort compares which elements?",
+        "answer": "adjacent"
+      },
+      {
+        "id": "d2",
+        "question": "Worst-case time complexity?",
+        "answer": "O(n^2)"
+      },
+      { "id": "d3", "question": "Is bubble sort stable?", "answer": "yes" },
+      {
+        "id": "d4",
+        "question": "Does bubble sort work in-place?",
+        "answer": "yes"
+      },
+      { "id": "d5", "question": "Best-case time complexity?", "answer": "O(n)" }
+    ],
+    "practice": [
+      {
+        "id": "q1",
+        "difficulty": "beginner",
+        "question": "Bubble sort swaps elements if they are?",
+        "answer": "out of order"
+      },
+      {
+        "id": "q2",
+        "difficulty": "intermediate",
+        "question": "Worst-case complexity?",
+        "answer": "O(n^2)"
+      },
+      {
+        "id": "q3",
+        "difficulty": "intermediate",
+        "question": "Best-case complexity?",
+        "answer": "O(n)"
+      },
+      {
+        "id": "q4",
+        "difficulty": "advanced",
+        "question": "Is bubble sort suitable for large inputs?",
+        "answer": "no"
+      },
+      {
+        "id": "q5",
+        "difficulty": "advanced",
+        "question": "Bubble sort is considered?",
+        "answer": "inefficient"
+      }
+    ]
+  },
+
+  "selection sort": {
+    "concept": "Selection sort repeatedly selects the smallest element and moves it to its correct position.",
+    "explanations": {
+      "beginner": "Selection sort finds the smallest element and moves it to the front.",
+      "intermediate": "Selection sort always performs O(n²) comparisons.",
+      "advanced": "Selection sort is not stable unless modified."
+    },
+    "diagnostic": [
+      {
+        "id": "d1",
+        "question": "Does selection sort pick smallest or largest first?",
+        "answer": "smallest"
+      },
+      {
+        "id": "d2",
+        "question": "Worst-case time complexity?",
+        "answer": "O(n^2)"
+      },
+      { "id": "d3", "question": "Is selection sort stable?", "answer": "no" },
+      {
+        "id": "d4",
+        "question": "Is selection sort in-place?",
+        "answer": "yes"
+      },
+      {
+        "id": "d5",
+        "question": "Does selection sort reduce number of swaps?",
+        "answer": "yes"
+      }
+    ],
+    "practice": [
+      {
+        "id": "q1",
+        "difficulty": "beginner",
+        "question": "Selection sort finds which element first?",
+        "answer": "smallest"
+      },
+      {
+        "id": "q2",
+        "difficulty": "intermediate",
+        "question": "Is selection sort stable?",
+        "answer": "no"
+      },
+      {
+        "id": "q3",
+        "difficulty": "intermediate",
+        "question": "Worst-case complexity?",
+        "answer": "O(n^2)"
+      },
+      {
+        "id": "q4",
+        "difficulty": "advanced",
+        "question": "Selection sort is ideal when minimizing?",
+        "answer": "swaps"
+      },
+      {
+        "id": "q5",
+        "difficulty": "advanced",
+        "question": "Does selection sort perform fewer swaps?",
+        "answer": "yes"
+      }
+    ]
+  },
+
+  "insertion sort": {
+    "concept": "Insertion sort builds a sorted array one item at a time by inserting each new element into its correct position.",
+    "explanations": {
+      "beginner": "Insertion sort works like sorting playing cards: pick an element and insert it at the right spot.",
+      "intermediate": "Insertion sort runs in O(n²) worst case but O(n) on nearly sorted arrays.",
+      "advanced": "Insertion sort is stable, in-place, and used in Timsort for small runs."
+    },
+    "diagnostic": [
+      {
+        "id": "d1",
+        "question": "Insertion sort is efficient for which type of arrays?",
+        "answer": "small"
+      },
+      {
+        "id": "d2",
+        "question": "Best-case time complexity?",
+        "answer": "O(n)"
+      },
+      {
+        "id": "d3",
+        "question": "Worst-case time complexity?",
+        "answer": "O(n^2)"
+      },
+      { "id": "d4", "question": "Is insertion sort stable?", "answer": "yes" },
+      { "id": "d5", "question": "Is insertion sort in-place?", "answer": "yes" }
+    ],
+    "practice": [
+      {
+        "id": "q1",
+        "difficulty": "beginner",
+        "question": "Insertion sort inserts each element into?",
+        "answer": "correct position"
+      },
+      {
+        "id": "q2",
+        "difficulty": "intermediate",
+        "question": "Worst-case complexity?",
+        "answer": "O(n^2)"
+      },
+      {
+        "id": "q3",
+        "difficulty": "intermediate",
+        "question": "Best-case scenario?",
+        "answer": "nearly sorted array"
+      },
+      {
+        "id": "q4",
+        "difficulty": "advanced",
+        "question": "Why does Timsort use insertion sort?",
+        "answer": "efficient on small runs"
+      },
+      {
+        "id": "q5",
+        "difficulty": "advanced",
+        "question": "Is insertion sort stable?",
+        "answer": "yes"
+      }
+    ]
+  },
+
+  "merge sort": {
+    "concept": "Merge sort divides an array, sorts each half, and merges them back.",
+    "explanations": {
+      "beginner": "Merge sort splits the list into halves and merges them in sorted order.",
+      "intermediate": "Merge sort has O(n log n) time complexity and is stable.",
+      "advanced": "Merge sort requires extra memory for merging, making it unsuitable for memory-constrained systems."
+    },
+    "diagnostic": [
+      {
+        "id": "d1",
+        "question": "Merge sort uses which paradigm?",
+        "answer": "divide and conquer"
+      },
+      {
+        "id": "d2",
+        "question": "Worst-case complexity?",
+        "answer": "O(n log n)"
+      },
+      { "id": "d3", "question": "Is merge sort stable?", "answer": "yes" },
+      {
+        "id": "d4",
+        "question": "Does merge sort require extra memory?",
+        "answer": "yes"
+      },
+      {
+        "id": "d5",
+        "question": "Does merge sort always split the array?",
+        "answer": "yes"
+      }
+    ],
+    "practice": [
+      {
+        "id": "q1",
+        "difficulty": "beginner",
+        "question": "Merge sort splits the array into?",
+        "answer": "halves"
+      },
+      {
+        "id": "q2",
+        "difficulty": "intermediate",
+        "question": "Time complexity of merge sort?",
+        "answer": "O(n log n)"
+      },
+      {
+        "id": "q3",
+        "difficulty": "advanced",
+        "question": "Merge sort requires extra?",
+        "answer": "space"
+      },
+      {
+        "id": "q4",
+        "difficulty": "advanced",
+        "question": "Merge sort is considered?",
+        "answer": "stable"
+      },
+      {
+        "id": "q5",
+        "difficulty": "intermediate",
+        "question": "Merge step combines?",
+        "answer": "sorted halves"
+      }
+    ]
+  },
+
+  "quick sort": {
+    "concept": "Quick sort selects a pivot and partitions the array around it.",
+    "explanations": {
+      "beginner": "Quick sort picks a pivot and splits the array.",
+      "intermediate": "Quick sort has average O(n log n) but worst-case O(n²).",
+      "advanced": "Choosing a good pivot improves performance (e.g., median-of-three)."
+    },
+    "diagnostic": [
+      {
+        "id": "d1",
+        "question": "Quick sort partitions the array using a?",
+        "answer": "pivot"
+      },
+      {
+        "id": "d2",
+        "question": "Average-case complexity?",
+        "answer": "O(n log n)"
+      },
+      { "id": "d3", "question": "Worst-case complexity?", "answer": "O(n^2)" },
+      {
+        "id": "d4",
+        "question": "Is quick sort an in-place algorithm?",
+        "answer": "yes"
+      },
+      {
+        "id": "d5",
+        "question": "Quick sort belongs to which paradigm?",
+        "answer": "divide and conquer"
+      }
+    ],
+    "practice": [
+      {
+        "id": "q1",
+        "difficulty": "beginner",
+        "question": "Quick sort relies on choosing a?",
+        "answer": "pivot"
+      },
+      {
+        "id": "q2",
+        "difficulty": "intermediate",
+        "question": "Worst-case occurs when pivot is?",
+        "answer": "smallest or largest element"
+      },
+      {
+        "id": "q3",
+        "difficulty": "intermediate",
+        "question": "Average-case complexity?",
+        "answer": "O(n log n)"
+      },
+      {
+        "id": "q4",
+        "difficulty": "advanced",
+        "question": "A good pivot selection technique?",
+        "answer": "median of three"
+      },
+      {
+        "id": "q5",
+        "difficulty": "advanced",
+        "question": "Quick sort is?",
+        "answer": "in-place"
+      }
+    ]
+  },
+
+  "stacks": {
+    "concept": "A stack is a linear data structure that follows Last-In-First-Out (LIFO).",
+    "explanations": {
+      "beginner": "A stack allows insertion and removal from only one end called the top.",
+      "intermediate": "Stacks support push, pop, peek operations and are used in undo mechanisms and expression evaluation.",
+      "advanced": "Stacks can be implemented using arrays or linked lists, and are essential for recursion and memory management."
+    },
+    "diagnostic": [
+      {
+        "id": "d1",
+        "question": "Stacks follow which principle?",
+        "answer": "LIFO"
+      },
+      {
+        "id": "d2",
+        "question": "Push operation adds an element to?",
+        "answer": "top"
+      },
+      {
+        "id": "d3",
+        "question": "Pop operation removes?",
+        "answer": "top element"
+      },
+      {
+        "id": "d4",
+        "question": "Stacks are used in evaluating?",
+        "answer": "expressions"
+      },
+      {
+        "id": "d5",
+        "question": "Are stacks used in recursion?",
+        "answer": "yes"
+      }
+    ],
+    "practice": [
+      {
+        "id": "q1",
+        "difficulty": "beginner",
+        "question": "Stacks follow which structure?",
+        "answer": "LIFO"
+      },
+      {
+        "id": "q2",
+        "difficulty": "intermediate",
+        "question": "Which operation removes the top element?",
+        "answer": "pop"
+      },
+      {
+        "id": "q3",
+        "difficulty": "intermediate",
+        "question": "Which operation checks the top without removing?",
+        "answer": "peek"
+      },
+      {
+        "id": "q4",
+        "difficulty": "advanced",
+        "question": "Stacks help in which feature of programming languages?",
+        "answer": "recursion"
+      },
+      {
+        "id": "q5",
+        "difficulty": "advanced",
+        "question": "Stacks can be implemented using?",
+        "answer": "arrays or linked lists"
+      }
+    ]
+  },
+
+  "queues": {
+    "concept": "A queue is a linear data structure that follows First-In-First-Out (FIFO).",
+    "explanations": {
+      "beginner": "A queue inserts at the back and removes from the front.",
+      "intermediate": "Queues support enqueue, dequeue operations and are used in scheduling and buffering.",
+      "advanced": "Variants include circular queues, priority queues, and dequeues."
+    },
+    "diagnostic": [
+      {
+        "id": "d1",
+        "question": "Queues follow which principle?",
+        "answer": "FIFO"
+      },
+      { "id": "d2", "question": "Enqueue adds element to?", "answer": "rear" },
+      {
+        "id": "d3",
+        "question": "Dequeue removes element from?",
+        "answer": "front"
+      },
+      { "id": "d4", "question": "Queues are used in?", "answer": "scheduling" },
+      {
+        "id": "d5",
+        "question": "Is circular queue a queue variant?",
+        "answer": "yes"
+      }
+    ],
+    "practice": [
+      {
+        "id": "q1",
+        "difficulty": "beginner",
+        "question": "Queues follow which order?",
+        "answer": "FIFO"
+      },
+      {
+        "id": "q2",
+        "difficulty": "intermediate",
+        "question": "Which operation removes front element?",
+        "answer": "dequeue"
+      },
+      {
+        "id": "q3",
+        "difficulty": "intermediate",
+        "question": "Which operation adds element at the back?",
+        "answer": "enqueue"
+      },
+      {
+        "id": "q4",
+        "difficulty": "advanced",
+        "question": "Circular queues avoid which problem?",
+        "answer": "wasted space"
+      },
+      {
+        "id": "q5",
+        "difficulty": "advanced",
+        "question": "Priority queues arrange elements by?",
+        "answer": "priority"
+      }
+    ]
+  },
+
+  "linked lists": {
+    "concept": "A linked list is a linear data structure where elements are connected through pointers.",
+    "explanations": {
+      "beginner": "A linked list consists of nodes, each containing data and a pointer to the next node.",
+      "intermediate": "Linked lists allow efficient insertions/deletions but have slow indexing.",
+      "advanced": "Variants include singly, doubly, and circular linked lists, each with trade-offs."
+    },
+    "diagnostic": [
+      {
+        "id": "d1",
+        "question": "A linked list is made up of?",
+        "answer": "nodes"
+      },
+      {
+        "id": "d2",
+        "question": "Does linked list allow random access?",
+        "answer": "no"
+      },
+      {
+        "id": "d3",
+        "question": "Insertion at head of linked list takes?",
+        "answer": "O(1)"
+      },
+      {
+        "id": "d4",
+        "question": "A doubly linked list has pointers to?",
+        "answer": "next and prev"
+      },
+      {
+        "id": "d5",
+        "question": "Are linked lists good for dynamic memory usage?",
+        "answer": "yes"
+      }
+    ],
+    "practice": [
+      {
+        "id": "q1",
+        "difficulty": "beginner",
+        "question": "Linked list nodes store data and?",
+        "answer": "a pointer"
+      },
+      {
+        "id": "q2",
+        "difficulty": "intermediate",
+        "question": "Linked lists lack which feature?",
+        "answer": "random access"
+      },
+      {
+        "id": "q3",
+        "difficulty": "intermediate",
+        "question": "Insertion at head is?",
+        "answer": "O(1)"
+      },
+      {
+        "id": "q4",
+        "difficulty": "advanced",
+        "question": "DLL stores pointers to?",
+        "answer": "next and previous"
+      },
+      {
+        "id": "q5",
+        "difficulty": "advanced",
+        "question": "Circular linked lists connect last node to?",
+        "answer": "first node"
+      }
+    ]
+  },
+
+  "trees": {
+    "concept": "A tree is a hierarchical data structure with nodes connected by edges, rooted at a single node.",
+    "explanations": {
+      "beginner": "A tree starts with a root node, and every node can have children.",
+      "intermediate": "Trees are used for representing hierarchies and support efficient search in BSTs.",
+      "advanced": "Variants like AVL, Red-Black Trees ensure height balancing for O(log n) operations."
+    },
+    "diagnostic": [
+      {
+        "id": "d1",
+        "question": "The topmost node of a tree is called?",
+        "answer": "root"
+      },
+      {
+        "id": "d2",
+        "question": "Nodes with no children are called?",
+        "answer": "leaves"
+      },
+      {
+        "id": "d3",
+        "question": "Binary Search Trees maintain what property?",
+        "answer": "left < root < right"
+      },
+      {
+        "id": "d4",
+        "question": "Balanced BSTs have height?",
+        "answer": "O(log n)"
+      },
+      {
+        "id": "d5",
+        "question": "Is DFS used to traverse trees?",
+        "answer": "yes"
+      }
+    ],
+    "practice": [
+      {
+        "id": "q1",
+        "difficulty": "beginner",
+        "question": "A node with children is called?",
+        "answer": "internal node"
+      },
+      {
+        "id": "q2",
+        "difficulty": "intermediate",
+        "question": "Which traversal visits left-root-right?",
+        "answer": "inorder"
+      },
+      {
+        "id": "q3",
+        "difficulty": "intermediate",
+        "question": "Height-balanced trees maintain?",
+        "answer": "O(log n) height"
+      },
+      {
+        "id": "q4",
+        "difficulty": "advanced",
+        "question": "AVL rotations help maintain?",
+        "answer": "balance"
+      },
+      {
+        "id": "q5",
+        "difficulty": "advanced",
+        "question": "Which traversal uses a queue?",
+        "answer": "level order"
+      }
+    ]
+  },
+
+  "graphs": {
+    "concept": "A graph consists of nodes (vertices) connected by edges, representing relationships.",
+    "explanations": {
+      "beginner": "Graphs have vertices and edges connecting them.",
+      "intermediate": "Graphs can be directed, undirected, weighted or unweighted.",
+      "advanced": "Algorithms like Dijkstra, DFS, BFS efficiently explore graph structure."
+    },
+    "diagnostic": [
+      {
+        "id": "d1",
+        "question": "Graphs contain nodes called?",
+        "answer": "vertices"
+      },
+      {
+        "id": "d2",
+        "question": "Edges in one direction create a?",
+        "answer": "directed graph"
+      },
+      {
+        "id": "d3",
+        "question": "BFS uses which data structure?",
+        "answer": "queue"
+      },
+      {
+        "id": "d4",
+        "question": "DFS uses which data structure?",
+        "answer": "stack"
+      },
+      {
+        "id": "d5",
+        "question": "Shortest path in weighted graphs is found by?",
+        "answer": "dijkstra"
+      }
+    ],
+    "practice": [
+      {
+        "id": "q1",
+        "difficulty": "beginner",
+        "question": "Graphs represent?",
+        "answer": "relationships"
+      },
+      {
+        "id": "q2",
+        "difficulty": "intermediate",
+        "question": "DFS primarily uses?",
+        "answer": "stack"
+      },
+      {
+        "id": "q3",
+        "difficulty": "intermediate",
+        "question": "BFS primarily uses?",
+        "answer": "queue"
+      },
+      {
+        "id": "q4",
+        "difficulty": "advanced",
+        "question": "Which algorithm finds shortest path?",
+        "answer": "dijkstra"
+      },
+      {
+        "id": "q5",
+        "difficulty": "advanced",
+        "question": "A graph with no cycles is a?",
+        "answer": "tree"
+      }
+    ]
+  }
+}
