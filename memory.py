@@ -1,125 +1,154 @@
-# memory.py
 import sqlite3
 import json
-import time
-from typing import Any, Dict, List, Optional
-
-DB_FILE = "memory.db"
+from datetime import datetime
 
 
-# ------------------------------------------------------
-# 1. Initialize SQLite database (automatically on import)
-# ------------------------------------------------------
-def init_db():
-    conn = sqlite3.connect(DB_FILE)
-    c = conn.cursor()
+class MemoryManager:
+    def __init__(self, db_path="memory.db"):
+        self.db_path = db_path
+        self._create_tables()
 
-    # Store key–value memory entries
-    c.execute('''
-        CREATE TABLE IF NOT EXISTS user_memory (
-            user_id TEXT,
-            key TEXT,
-            value TEXT,
-            ts INTEGER,
-            PRIMARY KEY (user_id, key)
-        )
-    ''')
+    # ---------------------------------------------
+    # INTERNAL UTILITIES
+    # ---------------------------------------------
+    def _connect(self):
+        return sqlite3.connect(self.db_path)
 
-    # Store session history logs
-    c.execute('''
-        CREATE TABLE IF NOT EXISTS session_history (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            user_id TEXT,
-            topic TEXT,
-            action TEXT,
-            payload TEXT,
-            ts INTEGER
-        )
-    ''')
+    def _create_tables(self):
+        conn = self._connect()
+        cur = conn.cursor()
 
-    conn.commit()
-    conn.close()
+        # Stores accuracy, attempts, wins/losses per topic
+        cur.execute("""
+            CREATE TABLE IF NOT EXISTS user_stats (
+                user_id TEXT,
+                topic TEXT,
+                attempts INTEGER DEFAULT 0,
+                correct INTEGER DEFAULT 0,
+                PRIMARY KEY (user_id, topic)
+            )
+        """)
 
+        # Stores each answer for detailed analytics
+        cur.execute("""
+            CREATE TABLE IF NOT EXISTS history (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                user_id TEXT,
+                topic TEXT,
+                question_id TEXT,
+                correct INTEGER,
+                student_answer TEXT,
+                correct_answer TEXT,
+                timestamp TEXT
+            )
+        """)
 
-# ------------------------------------------------------
-# 2. Save a memory value
-# ------------------------------------------------------
-def save_memory(user_id: str, key: str, value: Any):
-    conn = sqlite3.connect(DB_FILE)
-    c = conn.cursor()
+        conn.commit()
+        conn.close()
 
-    c.execute('''
-        REPLACE INTO user_memory (user_id, key, value, ts)
-        VALUES (?, ?, ?, ?)
-    ''', (user_id, key, json.dumps(value), int(time.time())))
+    # ---------------------------------------------
+    # MEMORY WRITE OPERATIONS
+    # ---------------------------------------------
+    def record_attempt(self, user_id, topic, question_id, student_answer, correct_answer, is_correct):
+        conn = self._connect()
+        cur = conn.cursor()
 
-    conn.commit()
-    conn.close()
+        # 1. Update cumulative stats
+        cur.execute("""
+            INSERT INTO user_stats (user_id, topic, attempts, correct)
+            VALUES (?, ?, 1, ?)
+            ON CONFLICT(user_id, topic)
+            DO UPDATE SET 
+                attempts = attempts + 1,
+                correct = correct + excluded.correct
+        """, (user_id, topic, 1 if is_correct else 0))
 
+        # 2. Record full history
+        cur.execute("""
+            INSERT INTO history (user_id, topic, question_id, correct,
+                                 student_answer, correct_answer, timestamp)
+            VALUES (?, ?, ?, ?, ?, ?, ?)
+        """, (
+            user_id,
+            topic,
+            question_id,
+            1 if is_correct else 0,
+            student_answer,
+            correct_answer,
+            datetime.now().isoformat()
+        ))
 
-# ------------------------------------------------------
-# 3. Load a memory value
-# ------------------------------------------------------
-def load_memory(user_id: str, key: str) -> Optional[Any]:
-    conn = sqlite3.connect(DB_FILE)
-    c = conn.cursor()
+        conn.commit()
+        conn.close()
 
-    c.execute('SELECT value FROM user_memory WHERE user_id=? AND key=?', (user_id, key))
-    row = c.fetchone()
+    # ---------------------------------------------
+    # MEMORY READ OPERATIONS
+    # ---------------------------------------------
+    def get_user_topic_stats(self, user_id, topic):
+        """Return accuracy & attempts for specific topic."""
+        conn = self._connect()
+        cur = conn.cursor()
 
-    conn.close()
+        cur.execute("""
+            SELECT attempts, correct FROM user_stats
+            WHERE user_id = ? AND topic = ?
+        """, (user_id, topic))
 
-    if row:
-        return json.loads(row[0])
-    return None
+        row = cur.fetchone()
+        conn.close()
 
+        if not row:
+            return {"attempts": 0, "correct": 0, "accuracy": 0.0}
 
-# ------------------------------------------------------
-# 4. Add an entry to session history
-# ------------------------------------------------------
-def append_session(user_id: str, topic: str, action: str, payload: Any):
-    conn = sqlite3.connect(DB_FILE)
-    c = conn.cursor()
+        attempts, correct = row
+        accuracy = round((correct / attempts) * 100, 2) if attempts > 0 else 0.0
+        return {"attempts": attempts, "correct": correct, "accuracy": accuracy}
 
-    c.execute('''
-        INSERT INTO session_history (user_id, topic, action, payload, ts)
-        VALUES (?, ?, ?, ?, ?)
-    ''', (user_id, topic, action, json.dumps(payload), int(time.time())))
+    def get_user_summary(self, user_id):
+        """Return all stats + detailed history."""
+        conn = self._connect()
+        cur = conn.cursor()
 
-    conn.commit()
-    conn.close()
+        # Topic-wise stats
+        cur.execute("""
+            SELECT topic, attempts, correct FROM user_stats
+            WHERE user_id = ?
+        """, (user_id,))
+        stats_rows = cur.fetchall()
 
+        stats = {}
+        for topic, attempts, correct in stats_rows:
+            accuracy = round((correct / attempts) * 100, 2) if attempts else 0.0
+            stats[topic] = {
+                "attempts": attempts,
+                "correct": correct,
+                "accuracy": accuracy
+            }
 
-# ------------------------------------------------------
-# 5. Retrieve session history
-# ------------------------------------------------------
-def get_history(user_id: str, limit: int = 50) -> List[Dict[str, Any]]:
-    conn = sqlite3.connect(DB_FILE)
-    c = conn.cursor()
+        # Detailed history
+        cur.execute("""
+            SELECT topic, question_id, correct, student_answer, correct_answer, timestamp
+            FROM history WHERE user_id = ?
+            ORDER BY timestamp DESC
+        """, (user_id,))
+        hist_rows = cur.fetchall()
 
-    c.execute('''
-        SELECT id, topic, action, payload, ts
-        FROM session_history
-        WHERE user_id=?
-        ORDER BY ts DESC
-        LIMIT ?
-    ''', (user_id, limit))
+        history = [
+            {
+                "topic": t,
+                "question_id": qid,
+                "correct": bool(c),
+                "student_answer": sa,
+                "correct_answer": ca,
+                "timestamp": ts
+            }
+            for (t, qid, c, sa, ca, ts) in hist_rows
+        ]
 
-    rows = c.fetchall()
-    conn.close()
+        conn.close()
 
-    result = []
-    for r in rows:
-        result.append({
-            "id": r[0],
-            "topic": r[1],
-            "action": r[2],
-            "payload": json.loads(r[3]),
-            "ts": r[4]
-        })
-
-    return result
-
-
-# Initialize the DB immediately when file is imported
-init_db()
+        return {
+            "user_id": user_id,
+            "topics": stats,
+            "history": history
+        }
