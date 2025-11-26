@@ -12,7 +12,7 @@ ALCA is a multi-agent, adaptive learning platform built with **Python**, **Flask
 
 ---
 
-# 📌 1. Key Features (Upgraded)
+# 📌 1. Key Features 
 
 ALCA now includes an *enhanced, professional feature set* inspired by advanced AI project structures:
 
