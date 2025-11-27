@@ -225,19 +225,26 @@ def api_memory(user_id):
 
 
 @app.get("/api/topics")
-@log_timing(logger_api_learn)  # reuse learn logger as topic listing is tied to learning
+@log_timing(logger_api_learn)  # reuse learn logger
 def api_topics():
-    # Provide a brief list of available topics and counts
     try:
         with open("sample_content_expanded.json", "r", encoding="utf-8") as f:
             content = json.load(f)
-    except Exception as e:
+    except Exception:
         logger_app.exception("Failed to load content file for /api/topics")
         return jsonify({"error": "Failed to load content"}), 500
 
-    topics = {k: {"has_practice": ("practice" in v), "has_explanations": ("explanations" in v)} for k, v in content.items()}
-    logger_api_learn.info(f"Serving /api/topics list ({len(topics)} topics)")
-    return jsonify({"topics": topics})
+    # Convert dict → list format (cleanest structure)
+    topics_list = []
+    for name, data in content.items():
+        topics_list.append({
+            "name": name,
+            "has_explanations": "explanations" in data,
+            "has_practice": "practice" in data
+        })
+
+    logger_api_learn.info(f"Serving /api/topics list ({len(topics_list)} topics)")
+    return jsonify({"topics": topics_list})
 
 
 @app.post("/api/session/store")
