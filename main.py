@@ -5,11 +5,9 @@ from logging.handlers import RotatingFileHandler
 import functools
 import time
 from flask import Flask, request, jsonify
-
-from agents import TutorAgent  # uses updated agents.py
+from agents import Orchestrator
 from memory import MemoryManager
-from evaluator import Evaluator, evaluate_answer  # keep compatibility with your evaluator
-
+from evaluator import Evaluator, evaluate_answer  
 # -------------------------
 # Paths
 # -------------------------
@@ -121,7 +119,7 @@ class LearningSystem:
         self.user_id = user_id
         self.memory = MemoryManager()
         self.content = self.load_content(content_file)
-        self.agent = TutorAgent(self.content)
+        self.agent = Orchestrator(self.content, self.memory)
 
     def load_content(self, file_path):
         with open(file_path, "r", encoding="utf-8") as f:
