@@ -1,104 +1,91 @@
+# demo_cli.py — Updated & Fixed
+
 import json
-from agents import Orchestrator
 from memory import MemoryManager
-
-
-def print_banner():
-    print("\n" + "=" * 50)
-    print("      ALCA — Adaptive Learning CLI Demo")
-    print("=" * 50 + "\n")
-
-
-def choose_topic(db):
-    print("Available Topics:")
-    topics = list(db.keys())
-
-    for i, t in enumerate(topics, start=1):
-        print(f"{i}. {t}")
-
-    while True:
-        try:
-            choice = int(input("\nEnter topic number: "))
-            if 1 <= choice <= len(topics):
-                return topics[choice - 1]
-        except:
-            pass
-
-        print("Invalid choice. Try again.")
-
+from agents import Orchestrator
 
 def run_session():
-    print_banner()
-
-    # Load expanded dataset
-    with open("sample_content_expanded.json", "r") as f:
-        DB = json.load(f)
+    print("\n==================================================")
+    print("      ALCA — Adaptive Learning CLI Demo")
+    print("==================================================\n")
 
     memory = MemoryManager()
-    orch = Orchestrator(DB, memory)
 
     user_id = input("Enter your user ID: ").strip()
+    with open("sample_content_expanded.json", "r", encoding="utf-8") as f:
+        content = json.load(f)
 
-    topic = choose_topic(DB)
+    topics = list(content.keys())
+
+    print("Available Topics:")
+    for i, t in enumerate(topics, 1):
+        print(f"{i}. {t.ljust(15)}")
+
+    choice = int(input("\nEnter topic number: "))
+    topic = topics[choice - 1]
+
     print(f"\nYou selected topic: {topic}\n")
 
-    # -----------------------
-    # 1) DIAGNOSTIC QUESTION
-    # -----------------------
-    print("🧠 Diagnostic Question:")
+    orch = Orchestrator(content, memory)
+
+    # -----------------------------------------
+    # Diagnostic
+    # -----------------------------------------
     diag = orch.handle(user_id, topic, "diagnose")
-    dq = diag["question"]
-    print("Q:", dq["question"])
-    input("Your answer (press Enter to continue): ")
+    q = diag["question"]
+    print("🧠 Diagnostic Question:")
+    print(f"Q: {q['question']}")
+    _ = input("Your answer (press Enter to continue): ")
 
     print("\n✔ Diagnostic complete.\n")
 
-    # -----------------------
-    # 2) EXPLANATION
-    # -----------------------
+    # -----------------------------------------
+    # Explanation
+    # -----------------------------------------
+    learn = orch.handle(user_id, topic, "learn")
     print("📘 Explanation:")
-    expl = orch.handle(user_id, topic, "learn")
-    print(f"Level: {expl['level']}")
-    print(expl["explanation"])
+    print(f"Level: {learn['level']}")
+    print(learn["explanation"])
 
     print("\n✔ Explanation complete.\n")
 
-    # -----------------------
-    # 3) PRACTICE
-    # -----------------------
-    print("📝 Practice Question:")
+    # -----------------------------------------
+    # Practice
+    # -----------------------------------------
     prac = orch.handle(user_id, topic, "practice")
     pq = prac["question"]
 
+    print("📝 Practice Question:")
     print(f"(Difficulty: {prac['difficulty']})")
-    print("Q:", pq["question"])
-    student_ans = input("Your answer: ").strip()
+    print(f"Q: {pq['question']}")
+    ans = input("Your answer: ")
 
-    # -----------------------
-    # 4) GRADE ANSWER
-    # -----------------------
-    result = orch.grade_answer(
-        user_id,
-        topic,
-        pq["id"],
-        student_ans,
-        pq["answer"]
-    )
+    # grading
+    feedback = orch.grade_answer(user_id, topic, pq["id"], ans, pq["answer"])
 
     print("\n🎯 Grading Result:")
-    print("Correct answer:", result["correct_answer"])
-    print("Your answer:", result["student_answer"])
-    print("Result:", "✔ Correct" if result["correct"] else "✘ Incorrect")
+    print(f"Correct answer: {pq['answer']}")
+    print(f"Your answer: {ans}")
+    print(f"Result: {'✔ Correct' if feedback['correct'] else '✘ Incorrect'}")
 
-    # -----------------------
-    # 5) MEMORY SUMMARY
-    # -----------------------
-    stats = memory.get_user(user_id)
+    # -----------------------------------------
+    # Summary (FIXED HERE)
+    # -----------------------------------------
+    stats = memory.get_user_summary(user_id)
 
-    print("\n🧾 Your Learning Stats:")
-    print(json.dumps(stats, indent=2))
+    print("\n📊 Your Learning Summary:")
+    if topic in stats["topics"]:
+        t = stats["topics"][topic]
+        print(f"Topic: {topic}")
+        print(f"Attempts: {t['attempts']}")
+        print(f"Correct: {t['correct']}")
+        print(f"Accuracy: {t['accuracy']}%")
+    else:
+        print("No stats available.")
 
-    print("\nSession complete. Goodbye!\n")
+    print("\n==================================================")
+    print("              End of Demo Session")
+    print("==================================================\n")
 
 
 if __name__ == "__main__":
