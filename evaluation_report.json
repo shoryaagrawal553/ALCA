@@ -1,0 +1,94 @@
+{
+  "timestamp": 1764273210.3530428,
+  "topics": {
+    "binary search": {
+      "diagnosis_latency_ms": 0.1,
+      "explanation_latency_ms": 1.6,
+      "practice_latency_ms": 4.7,
+      "num_practice_questions": 5,
+      "average_practice_score": 0.665
+    },
+    "linear search": {
+      "diagnosis_latency_ms": 0.04,
+      "explanation_latency_ms": 5.39,
+      "practice_latency_ms": 4.77,
+      "num_practice_questions": 5,
+      "average_practice_score": 0.86
+    },
+    "bubble sort": {
+      "diagnosis_latency_ms": 0.05,
+      "explanation_latency_ms": 5.31,
+      "practice_latency_ms": 4.47,
+      "num_practice_questions": 5,
+      "average_practice_score": 0.8
+    },
+    "selection sort": {
+      "diagnosis_latency_ms": 0.03,
+      "explanation_latency_ms": 4.83,
+      "practice_latency_ms": 4.39,
+      "num_practice_questions": 5,
+      "average_practice_score": 0.74
+    },
+    "insertion sort": {
+      "diagnosis_latency_ms": 0.04,
+      "explanation_latency_ms": 4.67,
+      "practice_latency_ms": 4.26,
+      "num_practice_questions": 5,
+      "average_practice_score": 1.0
+    },
+    "merge sort": {
+      "diagnosis_latency_ms": 0.04,
+      "explanation_latency_ms": 5.13,
+      "practice_latency_ms": 4.31,
+      "num_practice_questions": 5,
+      "average_practice_score": 1.0
+    },
+    "quick sort": {
+      "diagnosis_latency_ms": 0.12,
+      "explanation_latency_ms": 5.13,
+      "practice_latency_ms": 4.17,
+      "num_practice_questions": 5,
+      "average_practice_score": 0.4783
+    },
+    "stacks": {
+      "diagnosis_latency_ms": 0.06,
+      "explanation_latency_ms": 5.24,
+      "practice_latency_ms": 4.31,
+      "num_practice_questions": 5,
+      "average_practice_score": 0.6586
+    },
+    "queues": {
+      "diagnosis_latency_ms": 0.05,
+      "explanation_latency_ms": 4.98,
+      "practice_latency_ms": 4.54,
+      "num_practice_questions": 5,
+      "average_practice_score": 0.8
+    },
+    "linked lists": {
+      "diagnosis_latency_ms": 0.03,
+      "explanation_latency_ms": 5.32,
+      "practice_latency_ms": 6.14,
+      "num_practice_questions": 5,
+      "average_practice_score": 0.8118
+    },
+    "trees": {
+      "diagnosis_latency_ms": 0.04,
+      "explanation_latency_ms": 5.9,
+      "practice_latency_ms": 5.76,
+      "num_practice_questions": 5,
+      "average_practice_score": 0.6176
+    },
+    "graphs": {
+      "diagnosis_latency_ms": 0.04,
+      "explanation_latency_ms": 4.92,
+      "practice_latency_ms": 4.21,
+      "num_practice_questions": 5,
+      "average_practice_score": 0.825
+    }
+  },
+  "summary": {
+    "num_topics": 12,
+    "avg_practice_score_overall": 0.7714,
+    "timestamp": 1764273216.6640975
+  }
+}
