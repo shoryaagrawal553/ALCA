@@ -1,6 +1,9 @@
 import random
+import logging
 from memory import MemoryManager
 
+# Acquire agents logger (configured in main.py)
+logger_agents = logging.getLogger("alca.agents")
 
 class AssessmentAgent:
     """Asks diagnostic questions for a topic."""
@@ -11,10 +14,12 @@ class AssessmentAgent:
     def ask(self, topic):
         topic_data = self.db.get(topic)
         if not topic_data:
+            logger_agents.warning(f"AssessmentAgent.ask: unknown topic={topic}")
             return None
 
-        # pick a random diagnostic question
-        return random.choice(topic_data["diagnostic"])     
+        q = random.choice(topic_data["diagnostic"])
+        logger_agents.info(f"AssessmentAgent.ask topic={topic} qid={q.get('id') if isinstance(q, dict) else 'n/a'}")
+        return q
 
 
 class ExplanationAgent:
@@ -26,12 +31,13 @@ class ExplanationAgent:
     def explain(self, topic, level="beginner"):
         topic_data = self.db.get(topic)
         if not topic_data:
+            logger_agents.warning(f"ExplanationAgent.explain: unknown topic={topic}")
             return None
 
         levels = topic_data["explanations"]
-
-        # gracefully fallback to beginner
-        return levels.get(level, levels["beginner"])
+        res = levels.get(level, levels.get("beginner"))
+        logger_agents.info(f"ExplanationAgent.explain topic={topic} level={level}")
+        return res
 
 
 class PracticeAgent:
@@ -43,6 +49,7 @@ class PracticeAgent:
     def generate(self, topic, difficulty=None):
         topic_data = self.db.get(topic)
         if not topic_data:
+            logger_agents.warning(f"PracticeAgent.generate: unknown topic={topic}")
             return None
 
         questions = topic_data["practice"]
@@ -50,10 +57,13 @@ class PracticeAgent:
         if difficulty:
             filtered = [q for q in questions if q["difficulty"] == difficulty]
             if filtered:
-                return random.choice(filtered)
+                q = random.choice(filtered)
+                logger_agents.info(f"PracticeAgent.generate topic={topic} difficulty={difficulty} qid={q.get('id')}")
+                return q
 
-        # fallback: return any random practice question
-        return random.choice(questions)
+        q = random.choice(questions)
+        logger_agents.info(f"PracticeAgent.generate topic={topic} fallback qid={q.get('id')}")
+        return q
 
 
 class FeedbackAgent:
@@ -64,9 +74,8 @@ class FeedbackAgent:
 
     def grade(self, user_id, topic, qid, student_answer, correct_answer):
         correct = (student_answer.strip().lower() == correct_answer.strip().lower())
-
-        self.memory.record_attempt(user_id, topic, qid, correct)
-
+        self.memory.record_attempt(user_id, topic, qid, student_answer, correct_answer, correct)
+        logger_agents.info(f"FeedbackAgent.grade user={user_id} topic={topic} qid={qid} correct={correct}")
         return {
             "correct": correct,
             "correct_answer": correct_answer,
@@ -87,7 +96,9 @@ class Orchestrator:
         self.feedback_agent = FeedbackAgent(memory)
 
     def handle(self, user_id, topic, mode):
+        logger_agents.info(f"Orchestrator.handle user={user_id} topic={topic} mode={mode}")
         if topic not in self.db:
+            logger_agents.warning(f"Orchestrator.handle unknown topic={topic}")
             return {"error": "Unknown topic"}
 
         if mode == "diagnose":
@@ -95,9 +106,7 @@ class Orchestrator:
             return {"type": "diagnostic", "question": q}
 
         elif mode == "learn":
-            # choose explanation difficulty based on past performance
             past = self.memory.get_user_topic_stats(user_id, topic)
-
             if past is None:
                 level = "beginner"
             else:
@@ -113,9 +122,7 @@ class Orchestrator:
             return {"type": "explanation", "level": level, "explanation": ex}
 
         elif mode == "practice":
-            # adapt difficulty using memory
             past = self.memory.get_user_topic_stats(user_id, topic)
-
             if past is None:
                 diff = "beginner"
             else:
@@ -131,7 +138,9 @@ class Orchestrator:
             return {"type": "practice", "difficulty": diff, "question": q}
 
         else:
+            logger_agents.warning(f"Orchestrator.handle unknown mode={mode}")
             return {"error": "Unknown mode"}
 
     def grade_answer(self, user_id, topic, qid, ans, correct):
+        logger_agents.info(f"Orchestrator.grade_answer user={user_id} topic={topic} qid={qid} ans={ans} correct={correct}")
         return self.feedback_agent.grade(user_id, topic, qid, ans, correct)
