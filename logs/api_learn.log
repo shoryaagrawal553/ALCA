@@ -1,0 +1,28 @@
+[2025-11-28 00:19:32,529] INFO — alca.api.learn — ENTER api_topics - path=/api/topics payload=None
+[2025-11-28 00:19:32,565] INFO — alca.api.learn — Serving /api/topics list (12 topics)
+[2025-11-28 00:19:32,566] INFO — alca.api.learn — EXIT  api_topics - took=36.9ms
+[2025-11-28 00:22:45,314] INFO — alca.api.learn — ENTER api_topics - path=/api/topics payload=None
+[2025-11-28 00:22:45,316] INFO — alca.api.learn — Serving /api/topics list (12 topics)
+[2025-11-28 00:22:45,317] INFO — alca.api.learn — EXIT  api_topics - took=3.1ms
+[2025-11-28 00:25:09,077] INFO — alca.api.learn — ENTER api_topics - path=/api/topics payload=None
+[2025-11-28 00:25:09,079] INFO — alca.api.learn — Serving /api/topics list (12 topics)
+[2025-11-28 00:25:09,082] INFO — alca.api.learn — EXIT  api_topics - took=5.0ms
+[2025-11-28 00:25:29,518] INFO — alca.api.learn — ENTER api_topics - path=/api/topics payload=None
+[2025-11-28 00:25:29,520] INFO — alca.api.learn — Serving /api/topics list (12 topics)
+[2025-11-28 00:25:29,521] INFO — alca.api.learn — EXIT  api_topics - took=3.5ms
+[2025-11-28 00:25:49,605] INFO — alca.api.learn — ENTER api_learn - path=/api/learn payload={'user_id': 'u1', 'topic': '<topic>', 'answer': ''}
+[2025-11-28 00:25:49,605] INFO — alca.api.learn — Request /api/learn user_id=u1 topic=<topic> answer_provided=no
+[2025-11-28 00:25:49,829] INFO — alca.api.learn — EXIT  api_learn - took=224.9ms
+[2025-11-28 00:29:32,142] INFO — alca.api.learn — ENTER api_learn - path=/api/learn payload={'user_id': 'u1', 'topic': 'queues', 'answer': ''}
+[2025-11-28 00:29:32,143] INFO — alca.api.learn — Request /api/learn user_id=u1 topic=queues answer_provided=no
+[2025-11-28 00:29:32,154] INFO — alca.api.learn — Served question id=q1 for user=u1 topic=queues
+[2025-11-28 00:29:32,155] INFO — alca.api.learn — EXIT  api_learn - took=12.9ms
+[2025-11-28 00:30:39,713] INFO — alca.api.learn — ENTER api_learn - path=/api/learn payload={'user_id': 'u1', 'topic': 'queues', 'answer': 'test'}
+[2025-11-28 00:30:39,714] INFO — alca.api.learn — Request /api/learn user_id=u1 topic=queues answer_provided=yes
+[2025-11-28 00:30:40,090] INFO — alca.api.learn — User u1 answered question on topic=queues correct=False
+[2025-11-28 00:30:40,091] INFO — alca.api.learn — EXIT  api_learn - took=377.5ms
+[2025-11-28 00:31:16,664] INFO — alca.api.learn — ENTER api_store_session - path=/api/session/store payload={'user_id': 'u1', 'payload': {'x': 1}}
+[2025-11-28 00:31:16,667] INFO — alca.api.learn — EXIT  api_store_session - took=3.7ms
+[2025-11-28 00:31:44,212] INFO — alca.api.learn — ENTER api_topics - path=/api/topics payload=None
+[2025-11-28 00:31:44,215] INFO — alca.api.learn — Serving /api/topics list (12 topics)
+[2025-11-28 00:31:44,216] INFO — alca.api.learn — EXIT  api_topics - took=3.1ms
