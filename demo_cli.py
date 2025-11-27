@@ -33,7 +33,7 @@ def run_session():
     # -----------------------------------------
     diag = orch.handle(user_id, topic, "diagnose")
     q = diag["question"]
-    print("🧠 Diagnostic Question:")
+    print("Diagnostic Question:")
     print(f"Q: {q['question']}")
     _ = input("Your answer (press Enter to continue): ")
 
@@ -43,7 +43,7 @@ def run_session():
     # Explanation
     # -----------------------------------------
     learn = orch.handle(user_id, topic, "learn")
-    print("📘 Explanation:")
+    print("Explanation:")
     print(f"Level: {learn['level']}")
     print(learn["explanation"])
 
@@ -55,7 +55,7 @@ def run_session():
     prac = orch.handle(user_id, topic, "practice")
     pq = prac["question"]
 
-    print("📝 Practice Question:")
+    print("Practice Question:")
     print(f"(Difficulty: {prac['difficulty']})")
     print(f"Q: {pq['question']}")
     ans = input("Your answer: ")
@@ -63,7 +63,7 @@ def run_session():
     # grading
     feedback = orch.grade_answer(user_id, topic, pq["id"], ans, pq["answer"])
 
-    print("\n🎯 Grading Result:")
+    print("\nGrading Result:")
     print(f"Correct answer: {pq['answer']}")
     print(f"Your answer: {ans}")
     print(f"Result: {'✔ Correct' if feedback['correct'] else '✘ Incorrect'}")
@@ -73,7 +73,7 @@ def run_session():
     # -----------------------------------------
     stats = memory.get_user_summary(user_id)
 
-    print("\n📊 Your Learning Summary:")
+    print("\n Your Learning Summary:")
     if topic in stats["topics"]:
         t = stats["topics"][topic]
         print(f"Topic: {topic}")
