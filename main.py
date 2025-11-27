@@ -225,7 +225,7 @@ def api_memory(user_id):
 
 
 @app.get("/api/topics")
-@log_timing(logger_api_learn)  # reuse learn logger
+@log_timing(logger_api_learn)
 def api_topics():
     try:
         with open("sample_content_expanded.json", "r", encoding="utf-8") as f:
@@ -234,7 +234,6 @@ def api_topics():
         logger_app.exception("Failed to load content file for /api/topics")
         return jsonify({"error": "Failed to load content"}), 500
 
-    # Convert dict → list format (cleanest structure)
     topics_list = []
     for name, data in content.items():
         topics_list.append({
@@ -244,7 +243,14 @@ def api_topics():
         })
 
     logger_api_learn.info(f"Serving /api/topics list ({len(topics_list)} topics)")
-    return jsonify({"topics": topics_list})
+
+    # PRETTY JSON OUTPUT
+    return app.response_class(
+        response=json.dumps({"topics": topics_list}, indent=4),
+        status=200,
+        mimetype="application/json"
+    )
+
 
 
 @app.post("/api/session/store")
