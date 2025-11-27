@@ -1,0 +1,5 @@
+[2025-11-28 00:31:01,585] INFO — alca.api.memory — ENTER api_memory - path=/api/memory/u1 payload=None
+[2025-11-28 00:31:01,586] INFO — alca.api.memory — /api/memory requested for user_id=u1
+[2025-11-28 00:31:01,594] INFO — alca.api.memory — EXIT  api_memory - took=8.3ms
+[2025-11-28 00:31:30,482] INFO — alca.api.memory — ENTER api_get_session - path=/api/session/u1 payload=None
+[2025-11-28 00:31:30,519] INFO — alca.api.memory — EXIT  api_get_session - took=36.7ms
