@@ -1,94 +1,94 @@
 {
-  "timestamp": 1764273210.3530428,
+  "timestamp": 1764344606.400041,
   "topics": {
     "binary search": {
-      "diagnosis_latency_ms": 0.1,
-      "explanation_latency_ms": 1.6,
-      "practice_latency_ms": 4.7,
+      "diagnosis_latency_ms": 0.12,
+      "explanation_latency_ms": 1.62,
+      "practice_latency_ms": 6.35,
       "num_practice_questions": 5,
-      "average_practice_score": 0.665
+      "average_practice_score": 0.68
     },
     "linear search": {
-      "diagnosis_latency_ms": 0.04,
-      "explanation_latency_ms": 5.39,
-      "practice_latency_ms": 4.77,
+      "diagnosis_latency_ms": 0.07,
+      "explanation_latency_ms": 6.16,
+      "practice_latency_ms": 5.96,
       "num_practice_questions": 5,
-      "average_practice_score": 0.86
+      "average_practice_score": 0.8714
     },
     "bubble sort": {
-      "diagnosis_latency_ms": 0.05,
-      "explanation_latency_ms": 5.31,
-      "practice_latency_ms": 4.47,
+      "diagnosis_latency_ms": 0.04,
+      "explanation_latency_ms": 5.47,
+      "practice_latency_ms": 4.95,
       "num_practice_questions": 5,
-      "average_practice_score": 0.8
+      "average_practice_score": 0.7545
     },
     "selection sort": {
-      "diagnosis_latency_ms": 0.03,
-      "explanation_latency_ms": 4.83,
-      "practice_latency_ms": 4.39,
+      "diagnosis_latency_ms": 0.04,
+      "explanation_latency_ms": 6.4,
+      "practice_latency_ms": 6.41,
       "num_practice_questions": 5,
-      "average_practice_score": 0.74
+      "average_practice_score": 1.0
     },
     "insertion sort": {
       "diagnosis_latency_ms": 0.04,
-      "explanation_latency_ms": 4.67,
-      "practice_latency_ms": 4.26,
+      "explanation_latency_ms": 12.42,
+      "practice_latency_ms": 6.29,
       "num_practice_questions": 5,
-      "average_practice_score": 1.0
+      "average_practice_score": 0.7101
     },
     "merge sort": {
       "diagnosis_latency_ms": 0.04,
-      "explanation_latency_ms": 5.13,
-      "practice_latency_ms": 4.31,
+      "explanation_latency_ms": 22.99,
+      "practice_latency_ms": 6.97,
       "num_practice_questions": 5,
-      "average_practice_score": 1.0
+      "average_practice_score": 0.6667
     },
     "quick sort": {
-      "diagnosis_latency_ms": 0.12,
-      "explanation_latency_ms": 5.13,
-      "practice_latency_ms": 4.17,
+      "diagnosis_latency_ms": 0.06,
+      "explanation_latency_ms": 6.72,
+      "practice_latency_ms": 5.35,
       "num_practice_questions": 5,
-      "average_practice_score": 0.4783
+      "average_practice_score": 0.65
     },
     "stacks": {
-      "diagnosis_latency_ms": 0.06,
-      "explanation_latency_ms": 5.24,
-      "practice_latency_ms": 4.31,
+      "diagnosis_latency_ms": 0.04,
+      "explanation_latency_ms": 5.77,
+      "practice_latency_ms": 7.11,
       "num_practice_questions": 5,
-      "average_practice_score": 0.6586
+      "average_practice_score": 0.3864
     },
     "queues": {
-      "diagnosis_latency_ms": 0.05,
-      "explanation_latency_ms": 4.98,
-      "practice_latency_ms": 4.54,
+      "diagnosis_latency_ms": 0.04,
+      "explanation_latency_ms": 5.92,
+      "practice_latency_ms": 12.21,
       "num_practice_questions": 5,
-      "average_practice_score": 0.8
+      "average_practice_score": 0.625
     },
     "linked lists": {
-      "diagnosis_latency_ms": 0.03,
-      "explanation_latency_ms": 5.32,
-      "practice_latency_ms": 6.14,
+      "diagnosis_latency_ms": 0.04,
+      "explanation_latency_ms": 5.96,
+      "practice_latency_ms": 5.43,
       "num_practice_questions": 5,
-      "average_practice_score": 0.8118
+      "average_practice_score": 0.4622
     },
     "trees": {
-      "diagnosis_latency_ms": 0.04,
-      "explanation_latency_ms": 5.9,
-      "practice_latency_ms": 5.76,
+      "diagnosis_latency_ms": 0.03,
+      "explanation_latency_ms": 4.35,
+      "practice_latency_ms": 4.28,
       "num_practice_questions": 5,
-      "average_practice_score": 0.6176
+      "average_practice_score": 0.8909
     },
     "graphs": {
       "diagnosis_latency_ms": 0.04,
-      "explanation_latency_ms": 4.92,
-      "practice_latency_ms": 4.21,
+      "explanation_latency_ms": 4.54,
+      "practice_latency_ms": 4.53,
       "num_practice_questions": 5,
-      "average_practice_score": 0.825
+      "average_practice_score": 0.5923
     }
   },
   "summary": {
     "num_topics": 12,
-    "avg_practice_score_overall": 0.7714,
-    "timestamp": 1764273216.6640975
+    "avg_practice_score_overall": 0.6908,
+    "timestamp": 1764344613.4655128
   }
 }
