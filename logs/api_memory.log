@@ -8,3 +8,11 @@
 [2025-11-28 01:20:17,741] INFO — alca.api.memory — EXIT  api_memory - took=10.3ms
 [2025-11-28 01:22:54,354] INFO — alca.api.memory — ENTER api_get_session - path=/api/session/u1 payload=None
 [2025-11-28 01:22:54,399] INFO — alca.api.memory — EXIT  api_get_session - took=45.1ms
+[2025-11-28 21:04:56,788] INFO — alca.api.memory — ENTER api_memory - path=/api/memory/t1 payload=None
+[2025-11-28 21:04:56,790] INFO — alca.api.memory — /api/memory requested for user_id=t1
+[2025-11-28 21:04:56,801] INFO — alca.api.memory — EXIT  api_memory - took=13.1ms
+[2025-11-28 21:08:10,291] INFO — alca.api.memory — ENTER api_memory - path=/api/memory/t1 payload=None
+[2025-11-28 21:08:10,292] INFO — alca.api.memory — /api/memory requested for user_id=t1
+[2025-11-28 21:08:10,304] INFO — alca.api.memory — EXIT  api_memory - took=13.1ms
+[2025-11-28 21:11:18,885] INFO — alca.api.memory — ENTER api_get_session - path=/api/session/t1 payload=None
+[2025-11-28 21:11:18,959] INFO — alca.api.memory — EXIT  api_get_session - took=74.0ms

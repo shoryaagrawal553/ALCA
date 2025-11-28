@@ -67,3 +67,24 @@
 [2025-11-28 20:56:44,587] INFO — alca.api.learn — ENTER api_topics - path=/api/topics payload=None
 [2025-11-28 20:56:44,589] INFO — alca.api.learn — Serving /api/topics list (12 topics)
 [2025-11-28 20:56:44,589] INFO — alca.api.learn — EXIT  api_topics - took=2.7ms
+[2025-11-28 21:03:15,044] INFO — alca.api.learn — ENTER api_topics - path=/api/topics payload=None
+[2025-11-28 21:03:15,048] INFO — alca.api.learn — Serving /api/topics list (12 topics)
+[2025-11-28 21:03:15,049] INFO — alca.api.learn — EXIT  api_topics - took=4.6ms
+[2025-11-28 21:04:06,765] INFO — alca.api.learn — ENTER api_learn - path=/api/learn payload={'user_id': 't1', 'topic': 'stacks', 'answer': ''}
+[2025-11-28 21:04:06,765] INFO — alca.api.learn — Request /api/learn user_id=t1 topic=stacks answer_provided=no
+[2025-11-28 21:04:07,114] INFO — alca.api.learn — Served question id=q1 for user=t1 topic=stacks
+[2025-11-28 21:04:07,116] INFO — alca.api.learn — EXIT  api_learn - took=351.5ms
+[2025-11-28 21:04:32,527] INFO — alca.api.learn — ENTER api_learn - path=/api/learn payload={'user_id': 't1', 'topic': 'stacks', 'answer': 'LIFO'}
+[2025-11-28 21:04:32,528] INFO — alca.api.learn — Request /api/learn user_id=t1 topic=stacks answer_provided=yes
+[2025-11-28 21:04:32,651] INFO — alca.api.learn — User t1 answered question on topic=stacks correct=True
+[2025-11-28 21:04:32,652] INFO — alca.api.learn — EXIT  api_learn - took=125.1ms
+[2025-11-28 21:07:47,443] INFO — alca.api.learn — ENTER api_learn - path=/api/learn payload={'user_id': 't1', 'topic': 'stacks', 'answer': 'LIFO'}
+[2025-11-28 21:07:47,443] INFO — alca.api.learn — Request /api/learn user_id=t1 topic=stacks answer_provided=yes
+[2025-11-28 21:07:47,554] INFO — alca.api.learn — User t1 answered question on topic=stacks correct=False
+[2025-11-28 21:07:47,555] INFO — alca.api.learn — EXIT  api_learn - took=112.9ms
+[2025-11-28 21:08:04,810] INFO — alca.api.learn — ENTER api_learn - path=/api/learn payload={'user_id': 't1', 'topic': 'stacks', 'answer': 'FIFO'}
+[2025-11-28 21:08:04,810] INFO — alca.api.learn — Request /api/learn user_id=t1 topic=stacks answer_provided=yes
+[2025-11-28 21:08:04,932] INFO — alca.api.learn — User t1 answered question on topic=stacks correct=False
+[2025-11-28 21:08:04,935] INFO — alca.api.learn — EXIT  api_learn - took=125.2ms
+[2025-11-28 21:11:04,504] INFO — alca.api.learn — ENTER api_store_session - path=/api/session/store payload={'user_id': 't1', 'payload': {'test': 123}}
+[2025-11-28 21:11:04,509] INFO — alca.api.learn — EXIT  api_store_session - took=5.1ms

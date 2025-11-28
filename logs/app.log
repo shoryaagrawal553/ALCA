@@ -12,3 +12,9 @@
 [2025-11-28 01:19:43,165] INFO — alca.app — Stored session for user=u1
 [2025-11-28 20:37:57,523] INFO — alca.app — Starting ALCA Flask server at 127.0.0.1:8000
 [2025-11-28 20:53:56,575] INFO — alca.app — Starting ALCA Flask server at 127.0.0.1:8000
+[2025-11-28 21:02:57,959] INFO — alca.app — Starting ALCA Flask server at 127.0.0.1:8000
+[2025-11-28 21:04:07,112] INFO — alca.app — Stored session for user=t1
+[2025-11-28 21:04:32,649] INFO — alca.app — Stored session for user=t1
+[2025-11-28 21:07:47,552] INFO — alca.app — Stored session for user=t1
+[2025-11-28 21:08:04,929] INFO — alca.app — Stored session for user=t1
+[2025-11-28 21:11:04,506] INFO — alca.app — Stored session for user=t1
