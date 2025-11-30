@@ -40,22 +40,6 @@ class ExplanationAgent:
         logger_agents.info(f"ExplanationAgent.explain topic={topic} level={level}")
         return res
 
-class ExplanationAgent:
-    """Gives explanation for a topic based on difficulty level."""
-
-    def __init__(self, db):
-        self.db = db
-
-    def explain(self, topic, level="beginner"):
-        topic_data = self.db.get(topic)
-        if not topic_data:
-            logger_agents.warning(f"ExplanationAgent.explain: unknown topic={topic}")
-            return None
-
-        levels = topic_data["explanations"]
-        res = levels.get(level, levels.get("beginner"))
-        logger_agents.info(f"ExplanationAgent.explain topic={topic} level={level}")
-        return res
 
 class PracticeAgent:
     """Generates random practice questions."""
@@ -98,6 +82,18 @@ class FeedbackAgent:
             "correct_answer": correct_answer,
             "student_answer": student_answer,
         }
+
+class GeminiExplanationAgent:
+    """LLM-powered explanation agent using Gemini."""
+
+    def __init__(self):
+        self.tool = GeminiTool()
+
+    def explain(self, topic, level, fallback_text):
+        try:
+            return self.tool.explain(topic, level, fallback_text)
+        except Exception:
+            return fallback_text
 
 
 class Orchestrator:
