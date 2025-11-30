@@ -1,69 +1,92 @@
-# demo_cli.py
+# demo_cli.py — Updated & Fixed
+
 import json
-import asyncio
+from memory import MemoryManager
 from agents import Orchestrator
-from memory import load_memory, get_history
 
-# Load topic content
-with open("sample_content.json", "r") as f:
-    TOPIC_DB = json.load(f)
+def run_session():
+    print("\n==================================================")
+    print("      ALCA — Adaptive Learning CLI Demo")
+    print("==================================================\n")
 
-orch = Orchestrator(TOPIC_DB, use_llm=False)
+    memory = MemoryManager()
 
+    user_id = input("Enter your user ID: ").strip()
+    with open("sample_content_expanded.json", "r", encoding="utf-8") as f:
+        content = json.load(f)
 
-def print_header(text):
-    print("\n" + "=" * 50)
-    print(text)
-    print("=" * 50)
+    topics = list(content.keys())
 
+    print("Available Topics:")
+    for i, t in enumerate(topics, 1):
+        print(f"{i}. {t.ljust(15)}")
 
-async def full_learning_session(user_id: str, topic: str):
-    print_header("STEP 1 — DIAGNOSE")
-    diag = await orch.handle(user_id, topic, "diagnose")
-    print("Diagnostic questions:")
-    for q in diag["diagnostic"]:
-        print(" -", q["question"])
+    choice = int(input("\nEnter topic number: "))
+    topic = topics[choice - 1]
 
-    level = diag["estimated_level"] or "beginner"
-    print("\nEstimated level:", level)
+    print(f"\nYou selected topic: {topic}\n")
 
-    print_header("STEP 2 — EXPLANATION + PRACTICE")
-    out = await orch.handle(user_id, topic, "learn")
+    orch = Orchestrator(content, memory)
 
-    print("\nExplanation:")
-    print(out["explanation"]["explanation"])
+    # -----------------------------------------
+    # Diagnostic
+    # -----------------------------------------
+    diag = orch.handle(user_id, topic, "diagnose")
+    q = diag["question"]
+    print("Diagnostic Question:")
+    print(f"Q: {q['question']}")
+    _ = input("Your answer (press Enter to continue): ")
 
-    print("\nPractice Questions:")
-    for i, q in enumerate(out["practice"]["practice"], 1):
-        print(f"\nQ{i}.", q["question"])
-        ans = input("Your answer: ")
+    print("\n✔ Diagnostic complete.\n")
 
-        # Grade answer
-        grade = await orch.feedback.grade(
-            user_id,
-            topic,
-            q["id"],
-            ans,
-            q["answer"]
-        )
+    # -----------------------------------------
+    # Explanation
+    # -----------------------------------------
+    learn = orch.handle(user_id, topic, "learn")
+    print("Explanation:")
+    print(f"Level: {learn['level']}")
+    print(learn["explanation"])
 
-        if grade["correct"]:
-            print("✔ Correct!")
-        else:
-            print("✘ Incorrect. Correct answer:", grade["expected"])
+    print("\n✔ Explanation complete.\n")
 
-    print_header("STEP 3 — YOUR MEMORY")
-    perf = load_memory(user_id, f"perf_{topic}")
-    history = get_history(user_id)
+    # -----------------------------------------
+    # Practice
+    # -----------------------------------------
+    prac = orch.handle(user_id, topic, "practice")
+    pq = prac["question"]
 
-    print("\nPerformance:", perf)
-    print("\nRecent session logs:")
-    for h in history[-5:]:
-        print(f"[{h['action']}] → {h['payload']}")
+    print("Practice Question:")
+    print(f"(Difficulty: {prac['difficulty']})")
+    print(f"Q: {pq['question']}")
+    ans = input("Your answer: ")
+
+    # grading
+    feedback = orch.grade_answer(user_id, topic, pq["id"], ans, pq["answer"])
+
+    print("\nGrading Result:")
+    print(f"Correct answer: {pq['answer']}")
+    print(f"Your answer: {ans}")
+    print(f"Result: {'✔ Correct' if feedback['correct'] else '✘ Incorrect'}")
+
+    # -----------------------------------------
+    # Summary (FIXED HERE)
+    # -----------------------------------------
+    stats = memory.get_user_summary(user_id)
+
+    print("\n Your Learning Summary:")
+    if topic in stats["topics"]:
+        t = stats["topics"][topic]
+        print(f"Topic: {topic}")
+        print(f"Attempts: {t['attempts']}")
+        print(f"Correct: {t['correct']}")
+        print(f"Accuracy: {t['accuracy']}%")
+    else:
+        print("No stats available.")
+
+    print("\n==================================================")
+    print("              End of Demo Session")
+    print("==================================================\n")
 
 
 if __name__ == "__main__":
-    user = input("Enter user id: ")
-    topic = input("Enter topic (e.g., binary search): ").lower()
-
-    asyncio.run(full_learning_session(user, topic))
+    run_session()
