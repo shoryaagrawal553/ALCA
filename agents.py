@@ -40,6 +40,22 @@ class ExplanationAgent:
         logger_agents.info(f"ExplanationAgent.explain topic={topic} level={level}")
         return res
 
+class ExplanationAgent:
+    """Gives explanation for a topic based on difficulty level."""
+
+    def __init__(self, db):
+        self.db = db
+
+    def explain(self, topic, level="beginner"):
+        topic_data = self.db.get(topic)
+        if not topic_data:
+            logger_agents.warning(f"ExplanationAgent.explain: unknown topic={topic}")
+            return None
+
+        levels = topic_data["explanations"]
+        res = levels.get(level, levels.get("beginner"))
+        logger_agents.info(f"ExplanationAgent.explain topic={topic} level={level}")
+        return res
 
 class PracticeAgent:
     """Generates random practice questions."""
