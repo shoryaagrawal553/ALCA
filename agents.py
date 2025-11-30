@@ -111,6 +111,7 @@ class Orchestrator:
         self.explanation_agent = ExplanationAgent(db)
         self.practice_agent = PracticeAgent(db)
         self.feedback_agent = FeedbackAgent(memory)
+        self.gemini_agent = GeminiExplanationAgent()
 
     def handle(self, user_id, topic, mode):
         logger_agents.info(f"Orchestrator.handle user={user_id} topic={topic} mode={mode}")
@@ -135,8 +136,15 @@ class Orchestrator:
                 else:
                     level = "advanced"
 
-            ex = self.explanation_agent.explain(topic, level)
-            return {"type": "explanation", "level": level, "explanation": ex}
+            fallback = self.explanation_agent.explain(topic, level)
+            ex = self.gemini_agent.explain(topic, level, fallback)
+
+            return {
+                "type": "explanation",
+                "level": level,
+                "explanation": ex
+            }
+
 
         elif mode == "practice":
             past = self.memory.get_user_topic_stats(user_id, topic)
