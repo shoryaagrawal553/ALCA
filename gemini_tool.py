@@ -1,5 +1,11 @@
 import os
 import google.generativeai as genai
+from dotenv import load_dotenv
+
+# Force-load .env using absolute path (Windows safe)
+env_path = os.path.join(os.path.dirname(__file__), ".env")
+load_dotenv(env_path)
+
 
 # Load API key from environment
 GEMINI_KEY = os.getenv("GEMINI_API_KEY")
