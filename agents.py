@@ -1,6 +1,7 @@
 import random
 import logging
 from memory import MemoryManager
+from gemini_tool import GeminiTool
 
 # Acquire agents logger (configured in main.py)
 logger_agents = logging.getLogger("alca.agents")
