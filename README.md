@@ -1,59 +1,66 @@
-
 # 📘 ALCA — Adaptive Learning Companion Agent
 ![Python](https://img.shields.io/badge/Python-3.10+-blue)
 ![Flask](https://img.shields.io/badge/Framework-Flask-green)
 ![License](https://img.shields.io/badge/License-MIT-yellow)
 ![Status](https://img.shields.io/badge/Status-Production%20Ready-brightgreen)
 ![Agents](https://img.shields.io/badge/AI-Multi--Agent-orange)
----
-## 📑 Table of Contents
 
-1. [Features Overview](#-features-overview)
-2. [System Architecture](#-system-architecture)
-3. [Project Structure](#-project-structure)
-4. [Getting Started](#-getting-started)
-5. [Using ALCA](#-using-alca)
-   - [Get Topics](#-1-get-topics)
-   - [Request a Question](#-2-request-a-question)
-   - [Submit an Answer](#-3-submit-an-answer)
-   - [Get Memory](#-4-get-memory)
-   - [Session Management](#-5-session-management)
-   - [Run Evaluator](#-6-run-evaluator-judging-tool)
-6. [CLI Demo](#-cli-demo-user-mode)
-7. [Observability & Logging](#-observability--logging)
-8. [How It Works Internally](#-how-it-works-internally-high-level)
-9. [2‑Minute Demo Script](#-2-minute-demo-script-for-judges)
-10. [Project Badges](#-project-badges-visual-polish)
-11. [Why ALCA Is Competition-Ready](#-why-alca-is-competition-ready)
-12. [License](#-license)
-13. [Final Notes](#-alca-is-ready-for-submission)
-
-
-
-*A Multi-Agent, Tool-Based, Memory-Driven Learning System*
-
-ALCA is an adaptive learning platform built using **multi-agent architecture**, **custom tools**, **memory with SQLite**, **observability/logging**, **evaluation pipeline**, and a **REST API + CLI interface**.
-
-It dynamically diagnoses learner knowledge, explains concepts at the right difficulty level, gives adaptive practice questions, evaluates answers, and tracks long-term progress.
+*A Multi-Agent, Tool-Driven, Memory-Powered Adaptive Learning System*
 
 ---
 
-# 🚀 Features Overview
+# 📑 Table of Contents
+1. [Overview](#-overview)
+2. [Features](#-features)
+3. [System Architecture](#-system-architecture)
+4. [Project Structure](#-project-structure)
+5. [Getting Started](#-getting-started)
+6. [Using ALCA](#-using-alca)
+   - [Get Topics](#1-get-topics)
+   - [Request a Question](#2-request-a-question)
+   - [Submit an Answer](#3-submit-an-answer)
+   - [Get Memory](#4-get-memory)
+   - [Session Management](#5-session-management)
+   - [Run Evaluator](#6-run-evaluator)
+7. [CLI Demo](#-cli-demo)
+8. [Observability & Logging](#-observability--logging)
+9. [Gemini Integration](#-gemini-integration)
+10. [How It Works Internally](#-how-it-works-internally)
+11. [Quick Demonstration Guide](#-quick-demonstration-guide)
+12. [Requirement-to-Feature Mapping](#-requirement-to-feature-mapping)
+13. [License](#-license)
 
-| Capability             | Description                                                                            |
-| ---------------------- | -------------------------------------------------------------------------------------- |
-| **Multi-Agent System** | Diagnostic, Explanation, Practice, and Feedback agents coordinated by an orchestrator. |
-| **Tools**              | Code execution, simple search, dataset-driven evaluation tools.                        |
-| **Memory & Sessions**  | SQLite-based memory manager + session storage in JSONL format.                         |
-| **Observability**      | Rotating logs for app, API, agents, evaluator; timing logs for every endpoint.         |
-| **Evaluator**          | Automated evaluation across all topics (latency, scoring, practice accuracy).          |
-| **APIs**               | /api/learn, /api/topics, /api/memory, /api/session, /api/evaluate                      |
-| **CLI Demo**           | Fully interactive terminal experience for end-users.                                   |
+---
+
+# 📘 Overview
+ALCA is a lightweight yet powerful adaptive learning system designed using:
+- **Multi-agent architecture**
+- **Custom tool integrations**
+- **SQLite-backed long-term memory**
+- **Detailed observability & logging system**
+- **Evaluator for automated quality checks**
+- **REST API + CLI-based learner interface**
+- **Optional Gemini-powered AI explanations**
+
+ALCA dynamically diagnoses a learner's understanding, selects the right explanation difficulty, generates adaptive practice questions, and updates memory for personalized learning.
+
+---
+
+# 🚀 Features
+| Capability | Description |
+|-----------|-------------|
+| **Multi-Agent System** | Assessment, Explanation, Practice, and Feedback agents managed by an Orchestrator. |
+| **Custom Tools** | Code execution tools, search utilities, and evaluation helpers. |
+| **Memory System** | SQLite-based persistent accuracy tracking and session storage. |
+| **Observability** | Rotating logs for API, agents, evaluation, and performance timing. |
+| **Evaluator Module** | Measures correctness, latency, and topic coverage. |
+| **Gemini Integration** | Optional AI-powered enhanced explanations. |
+| **REST API** | Endpoints for learning, memory, evaluation, and sessions. |
+| **CLI Tutor Mode** | Interactive question–explanation–practice cycle. |
 
 ---
 
 # 🧠 System Architecture
-
 ```
                    ┌────────────────────────────────┐
                    │          ALCA System           │
@@ -63,7 +70,7 @@ It dynamically diagnoses learner knowledge, explains concepts at the right diffi
        │                        │                        │
 ┌──────────────┐        ┌───────────────┐      ┌─────────────────┐
 │ Diagnostics  │        │ Explanation   │      │ Practice Agent  │
-│   Agent      │        │   Agent       │      │ (Adaptive Qs)   │
+│   Agent      │        │   Agent       │      │  (Adaptive Qs)  │
 └──────────────┘        └───────────────┘      └─────────────────┘
                       (topic + difficulty)
                                 │
@@ -90,51 +97,34 @@ It dynamically diagnoses learner knowledge, explains concepts at the right diffi
 ---
 
 # 📂 Project Structure
-
 ```
 ALCA/
-│
 ├── main.py                     # Flask API + Logging + Sessions
-├── agents.py                   # Multi-agent system
+├── agents.py                   # Multi-agent system + Gemini agent
 ├── memory.py                   # SQLite memory manager
-├── tools.py                    # Tools: code executor, search
+├── tools.py                    # Custom tools
+├── gemini_tool.py              # Gemini LLM wrapper
 ├── evaluator.py                # Auto evaluator
-├── demo_cli.py                 # Interactive CLI for users
-│
+├── demo_cli.py                 # Interactive CLI
 ├── sample_content_expanded.json
 ├── sample_content.json
-│
-├── logs/                       # Observability logs (auto-generated)
-│   ├── app.log
-│   ├── agents.log
-│   ├── api_learn.log
-│   ├── api_memory.log
-│   ├── api_evaluate.log
-│   └── evaluator.log
-│
-├── sessions/                   # Persistent user sessions
-│
+├── logs/                       # Auto-generated logs
+├── sessions/                   # Stored session data
 └── requirements.txt
 ```
 
 ---
 
 # 🏃 Getting Started
-
-## 1. Install dependencies
-
+### Install dependencies
 ```
 pip install -r requirements.txt
 ```
-
-## 2. Run the server
-
+### Run the server
 ```
 python main.py
 ```
-
-Server starts at:
-
+Access ALCA at:
 ```
 http://127.0.0.1:8000
 ```
@@ -142,15 +132,11 @@ http://127.0.0.1:8000
 ---
 
 # 🖥 Using ALCA
-
-## ✔ 1. Get Topics
-
+## 1. Get Topics
 ```
 GET /api/topics
 ```
-
-Example output:
-
+Example:
 ```json
 {
     "topics": [
@@ -160,11 +146,8 @@ Example output:
 }
 ```
 
----
-
-## ✔ 2. Request a Question
-
-```
+## 2. Request a Question
+```json
 POST /api/learn
 {
   "user_id": "u1",
@@ -173,11 +156,8 @@ POST /api/learn
 }
 ```
 
----
-
-## ✔ 3. Submit an Answer
-
-```
+## 3. Submit an Answer
+```json
 POST /api/learn
 {
   "user_id": "u1",
@@ -186,122 +166,87 @@ POST /api/learn
 }
 ```
 
-Returns:
-
-- correctness
-- explanation
-- difficulty level
-- updated stats
-
----
-
-## ✔ 4. Get Memory
-
+## 4. Get Memory
 ```
 GET /api/memory/u1
 ```
 
----
-
-## ✔ 5. Session Management
-
-### Store session:
-
-```
+## 5. Session Management
+Store:
+```json
 POST /api/session/store
 {"user_id":"u1", "payload":{"last_topic":"stacks"}}
 ```
-
-### Retrieve session:
-
+Retrieve:
 ```
 GET /api/session/u1
 ```
 
----
-
-## ✔ 6. Run Evaluator (Judging Tool)
-
+## 6. Run Evaluator
 ```
 python evaluator.py sample_content_expanded.json
 ```
-
-Produces:
-
-```
-evaluation_report.json
-```
-
-Includes:
-
-- topic latency
-- average correctness
-- accuracy trends
-- question counts
+Outputs `evaluation_report.json`.
 
 ---
 
-# 🧪 CLI Demo (User Mode)
-
+# 🧪 CLI Demo
 ```
 python demo_cli.py
 ```
-
-Provides:
-
-- topic list
-- diagnostic
-- explanation
-- practice
-- grading
-- summary
-
-This is the preferred mode for human users.
+Experience the full cycle:
+- Diagnostic
+- Explanation
+- Practice
+- Grading
+- Summary
 
 ---
 
 # 📊 Observability & Logging
+Logs created under `/logs`:
+- `app.log` — server startup
+- `agents.log` — every agent call
+- `api_learn.log` — learning mode requests
+- `api_memory.log` — memory interactions
+- `api_evaluate.log` — evaluator API
+- `evaluator.log` — scoring + timing
 
-All logs stored in `logs/`:
-
-- app.log — server start, API loading
-- agents.log — every agent call
-- api\_learn.log — learning requests
-- api\_memory.log — memory requests
-- api\_evaluate.log — evaluator requests
-- evaluator.log — metrics & scoring
-
-Each request includes:
-
+Each request logs:
 - timestamp
-- agent invoked
 - user\_id
 - topic
-- latency (ms)
+- agent used
+- response time
+
+---
+
+# 🤖 Gemini Integration
+ALCA offers optional **Gemini-powered explanations**, enhancing clarity and personalization.
+
+### Workflow:
+1. Base explanation fetched from dataset
+2. Passed to `GeminiExplanationAgent`
+3. Gemini generates a more natural explanation
+4. If Gemini fails → fallback explanation returned
+
+### Environment variable:
+```
+GEMINI_API_KEY=your_key_here
+```
+This remains **local only** (never committed to Git).
 
 ---
 
 # 🧩 Requirement-to-Feature Mapping
-
-ALCA directly satisfies **all required capstone concepts**:
-
-✔ Multi-Agent System\
-✔ Orchestrator\
-✔ Custom Tools\
-✔ Sessions & Memory\
-✔ Observability (Logging + Timing)\
-✔ Evaluation Pipeline\
-✔ Dataset Integration\
-✔ Clean APIs + CLI Demo\
-✔ Fully Modular Architecture
-
-All features are lightweight, clean, and professionally structured.
-
----
-
-# 📄 License
-
-MIT License
+| Requirement | Implementation |
+|------------|----------------|
+| Multi-Agent System | Assessment, Explanation, Practice, Feedback Agents + Orchestrator |
+| Tools | Code executor, search utility, evaluator tools |
+| Sessions & Memory | SQLite + session snapshots |
+| Observability | Rotating logs + timing decorators |
+| Evaluation | evaluator.py auto testing framework |
+| Gemini (Bonus) | Optional LLM explanation agent |
 
 ---
 
@@ -327,59 +272,70 @@ This modular pipeline ensures the system is:
 ---
 
 # 🚀 Quick Demonstration Guide
-
-Use this script during your evaluation presentation:
-
-### **1️⃣ Start ALCA**
-
+### Start backend:
 ```bash
 python main.py
 ```
 
-Say: *"The ALCA backend is now running with full logging and observability."*
-
-### **2️⃣ Run the CLI Demo**
-
+### Run CLI:
 ```bash
 python demo_cli.py
 ```
 
-Say:
-
-- *"ALCA begins by diagnosing your understanding."*
-- *"It then provides explanations based on difficulty."*
-- *"Finally, it gives adaptive practice and updates memory automatically."*
-
-### **3️⃣ Show Memory Dashboard**
-
-Open:
-
+### View Memory:
 ```
 http://127.0.0.1:8000/api/memory/u1
 ```
 
-Say: *"ALCA tracks accuracy, attempts, and history per topic using SQLite."*
+---
 
-### **4️⃣ Show Logs**
+# 🤖 Gemini Explanation Examples
+**Binary Search**  
+• *Base:* "Binary search splits a sorted list in half…"  
+• *Gemini:* "Binary search efficiently narrows down a sorted list by repeatedly halving it, focusing only on the region where the target can exist."
 
-Open the `/logs` folder. Say: *"ALCA logs every agent call, API request, evaluator run, and performance metric."*
+**Stacks**  
+• *Base:* "A stack allows insertion and removal from only one end."  
+• *Gemini:* "A stack follows the Last-In, First-Out rule—similar to stacking plates, where the newest plate is always removed first."
 
-### **5️⃣ Run the Evaluator**
+---
 
-```bash
-python evaluator.py sample_content_expanded.json
+# ❓ FAQ / Troubleshooting
+### **Gemini explanations not appearing?**
+- Ensure `.env` exists in project root.
+- Ensure it contains:
 ```
+GEMINI_API_KEY=your_key_here
+```
+- Restart terminal after setting the key.
+- Remember: Gemini is optional; fallback explanations still work.
 
-Say: *"The evaluator runs multi-topic analysis for latency, scoring, and correctness."*
-
-### **6️⃣ End With Topics API**
-
+### **Logs folder empty?**
+Logs appear **after your first API request**.
+Visit:
 ```
 http://127.0.0.1:8000/api/topics
 ```
 
-Say: *"All topics and capabilities are cleanly exposed via REST APIs."*
+### **Evaluator errors?**
+Ensure dataset exists: `sample_content_expanded.json`.
+Run:
+```
+p python evaluator.py sample_content_expanded.json
+```
 
+### **Memory not updating?**
+Delete corrupted `memory.db` and rerun.
 
+### **API connection issues?**
+Start server first:
+```
+python main.py
+```
+Then retry.
 
+---
+### Start backend:
+```bash
+python main.py
 
