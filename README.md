@@ -1,5 +1,11 @@
-# 📘 ALCA — Adaptive Learning Companion Agent
 
+# 📘 ALCA — Adaptive Learning Companion Agent
+![Python](https://img.shields.io/badge/Python-3.10+-blue)
+![Flask](https://img.shields.io/badge/Framework-Flask-green)
+![License](https://img.shields.io/badge/License-MIT-yellow)
+![Status](https://img.shields.io/badge/Status-Production%20Ready-brightgreen)
+![Agents](https://img.shields.io/badge/AI-Multi--Agent-orange)
+---
 ## 📑 Table of Contents
 
 1. [Features Overview](#-features-overview)
@@ -374,23 +380,6 @@ http://127.0.0.1:8000/api/topics
 
 Say: *"All topics and capabilities are cleanly exposed via REST APIs."*
 
----
 
-# 🏷️ Project Badges (Visual Polish)
 
-Add these badges at the top of the README for a professional look:
-
-```
-![Python](https://img.shields.io/badge/Python-3.10+-blue)
-![Flask](https://img.shields.io/badge/Framework-Flask-green)
-![License](https://img.shields.io/badge/License-MIT-yellow)
-![Status](https://img.shields.io/badge/Status-Production%20Ready-brightgreen)
-![Agents](https://img.shields.io/badge/AI-Multi--Agent-orange)
-```
-
----
-
-# 🎉 ALCA is Ready for Submission
-
-You now have a fully functional, clean, production-grade capstone project.
 
