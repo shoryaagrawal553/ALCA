@@ -1,5 +1,3 @@
-# demo_cli.py — Updated & Fixed
-
 import json
 from memory import MemoryManager
 from agents import Orchestrator
