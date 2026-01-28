@@ -10,7 +10,7 @@ try:
     from memory import MemoryManager 
 except Exception:
     Orchestrator = None
-    MemoryManager = None
+    MemoryManager = None 
 
 
 def evaluate_answer(student_answer: str, correct_answer: str) -> bool:
