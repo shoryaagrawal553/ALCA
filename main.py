@@ -144,7 +144,7 @@ class LearningSystem:
         if not filtered:
             filtered = questions
 
-        return filtered[0]
+        return random.choice(filtered)
 
     def run_step(self, topic, student_answer):
         q = self.get_question(topic)

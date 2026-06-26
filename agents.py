@@ -2,6 +2,7 @@ import random
 import logging
 from memory import MemoryManager
 from gemini_tool import GeminiTool
+from tools import simple_search, evaluate_python_code
 
 # Acquire agents logger (configured in main.py)
 logger_agents = logging.getLogger("alca.agents")
@@ -15,8 +16,8 @@ class AssessmentAgent:
     def ask(self, topic):
         topic_data = self.db.get(topic)
         if not topic_data:
-            logger_agents.warning(f"AssessmentAgent.ask: unknown topic={topic}")
-            return None
+            logger_agents.warning(f"AssessmentAgent.ask: unknown topic={topic}, attempting fuzzy match")
+            topic_data = simple_search(topic, self.db)
 
         q = random.choice(topic_data["diagnostic"])
         logger_agents.info(f"AssessmentAgent.ask topic={topic} qid={q.get('id') if isinstance(q, dict) else 'n/a'}")
@@ -32,8 +33,8 @@ class ExplanationAgent:
     def explain(self, topic, level="beginner"):
         topic_data = self.db.get(topic)
         if not topic_data:
-            logger_agents.warning(f"ExplanationAgent.explain: unknown topic={topic}")
-            return None
+            logger_agents.warning(f"ExplanationAgent.explain: unknown topic={topic}, attempting fuzzy match")
+            topic_data = simple_search(topic, self.db)
 
         levels = topic_data["explanations"]
         res = levels.get(level, levels.get("beginner"))
@@ -50,8 +51,8 @@ class PracticeAgent:
     def generate(self, topic, difficulty=None):
         topic_data = self.db.get(topic)
         if not topic_data:
-            logger_agents.warning(f"PracticeAgent.generate: unknown topic={topic}")
-            return None
+            logger_agents.warning(f"PracticeAgent.generate: unknown topic={topic}, attempting fuzzy match")
+            topic_data = simple_search(topic, self.db)
 
         questions = topic_data["practice"]
 
@@ -120,17 +121,13 @@ class Orchestrator:
             return {"type": "diagnostic", "question": q}
 
         elif mode == "learn":
-            past = self.memory.get_user_topic_stats(user_id, topic)
-            if past is None:
+            accuracy = self.memory.get_user_topic_stats(user_id, topic)["accuracy"]
+            if accuracy < 40:
                 level = "beginner"
+            elif accuracy < 75:
+                level = "intermediate"
             else:
-                accuracy = past["accuracy"]
-                if accuracy < 40:
-                    level = "beginner"
-                elif accuracy < 75:
-                    level = "intermediate"
-                else:
-                    level = "advanced"
+                level = "advanced"
 
             fallback = self.explanation_agent.explain(topic, level)
             ex = self.gemini_agent.explain(topic, level, fallback)
@@ -143,17 +140,13 @@ class Orchestrator:
 
 
         elif mode == "practice":
-            past = self.memory.get_user_topic_stats(user_id, topic)
-            if past is None:
+            accuracy = self.memory.get_user_topic_stats(user_id, topic)["accuracy"]
+            if accuracy < 40:
                 diff = "beginner"
+            elif accuracy < 75:
+                diff = "intermediate"
             else:
-                accuracy = past["accuracy"]
-                if accuracy < 40:
-                    diff = "beginner"
-                elif accuracy < 75:
-                    diff = "intermediate"
-                else:
-                    diff = "advanced"
+                diff = "advanced"
 
             q = self.practice_agent.generate(topic, diff)
             return {"type": "practice", "difficulty": diff, "question": q}

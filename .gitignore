@@ -1,1 +1,9 @@
 .env
+__pycache__/
+*.pyc
+*.pyo
+venv/
+memory.db
+logs/
+sessions/
+evaluation_report.json

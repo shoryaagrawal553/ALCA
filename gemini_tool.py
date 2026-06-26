@@ -15,7 +15,7 @@ class GeminiTool:
         self.enabled = GEMINI_KEY is not None and GEMINI_KEY.strip() != ""
         if self.enabled:
             genai.configure(api_key=GEMINI_KEY)
-            self.model = genai.GenerativeModel("gemini-pro")
+            self.model = genai.GenerativeModel("gemini-1.5-flash")
 
     def explain(self, topic, difficulty, fallback_text):
         """

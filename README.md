@@ -26,7 +26,7 @@
 8. [Observability & Logging](#-observability--logging)
 9. [Gemini Integration](#-gemini-integration)
 10. [Quick Demonstration Guide](#-quick-demonstration-guide)
-11. [⚙️ How It Works Internally](#️-how-it-works-internally)
+11. [How It Works Internally](#how-it-works-internally)
 12. [Requirement-to-Feature Mapping](#-requirement-to-feature-mapping)
 13. [FAQ / Troubleshooting](#-faq--troubleshooting)
 14. [Gemini Explanation Examples](#-gemini-explanation-examples)
@@ -34,7 +34,7 @@
 
 ---
 
-# 📘 Overview
+# 📖 Overview
 ALCA is a lightweight yet powerful adaptive learning system designed using:
 - **Multi-agent architecture**
 - **Custom tool integrations**
@@ -196,9 +196,11 @@ GET /api/memory/u1
 
 ## 5. Session Management
 Store:
-```json
+```
 POST /api/session/store
-{"user_id":"u1", "payload":{"last_topic":"stacks"}}
+```
+```json
+{"user_id": "u1", "payload": {"last_topic": "stacks"}}
 ```
 Retrieve:
 ```
@@ -245,7 +247,7 @@ Logs created under `/logs`:
 
 Each request logs:
 - timestamp
-- user\_id
+- user_id
 - topic
 - agent used
 - response time
@@ -353,7 +355,6 @@ Start server first:
 python main.py
 ```
 Then retry.
-
 
 ---
 
