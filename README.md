@@ -130,7 +130,6 @@ ALCA/
 ├── evaluator.py                # Auto evaluator
 ├── demo_cli.py                 # Interactive CLI
 ├── sample_content_expanded.json
-├── sample_content.json
 ├── logs/                       # Auto-generated rotating log files
 ├── sessions/                   # Per-user session snapshots (.jsonl)
 └── requirements.txt
