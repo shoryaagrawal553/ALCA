@@ -125,9 +125,9 @@ class Orchestrator:
                 level = "beginner"
             else:
                 accuracy = past["accuracy"]
-                if accuracy < 0.4:
+                if accuracy < 40:
                     level = "beginner"
-                elif accuracy < 0.7:
+                elif accuracy < 75:
                     level = "intermediate"
                 else:
                     level = "advanced"
@@ -148,9 +148,9 @@ class Orchestrator:
                 diff = "beginner"
             else:
                 accuracy = past["accuracy"]
-                if accuracy < 0.4:
+                if accuracy < 40:
                     diff = "beginner"
-                elif accuracy < 0.7:
+                elif accuracy < 75:
                     diff = "intermediate"
                 else:
                     diff = "advanced"

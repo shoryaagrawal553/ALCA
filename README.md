@@ -25,10 +25,12 @@
 7. [CLI Demo](#-cli-demo)
 8. [Observability & Logging](#-observability--logging)
 9. [Gemini Integration](#-gemini-integration)
-10. [How It Works Internally](#-how-it-works-internally)
-11. [Quick Demonstration Guide](#-quick-demonstration-guide)
+10. [Quick Demonstration Guide](#-quick-demonstration-guide)
+11. [⚙️ How It Works Internally](#️-how-it-works-internally)
 12. [Requirement-to-Feature Mapping](#-requirement-to-feature-mapping)
-13. [License](#-license)
+13. [FAQ / Troubleshooting](#-faq--troubleshooting)
+14. [Gemini Explanation Examples](#-gemini-explanation-examples)
+15. [License](#-license)
 
 ---
 
@@ -129,8 +131,8 @@ ALCA/
 ├── demo_cli.py                 # Interactive CLI
 ├── sample_content_expanded.json
 ├── sample_content.json
-├── logs/                       # Auto-generated logs
-├── sessions/                   # Stored session data
+├── logs/                       # Auto-generated rotating log files
+├── sessions/                   # Per-user session snapshots (.jsonl)
 └── requirements.txt
 ```
 
@@ -204,10 +206,18 @@ GET /api/session/u1
 ```
 
 ## 6. Run Evaluator
+
+**Via CLI** (standalone script):
 ```
 python evaluator.py sample_content_expanded.json
 ```
 Outputs `evaluation_report.json`.
+
+**Via API** (while server is running):
+```
+POST /api/evaluate
+```
+Returns a JSON report with per-topic latency, practice scores, and a summary.
 
 ---
 
@@ -271,7 +281,7 @@ This remains **local only** (never committed to Git).
 
 ---
 
-# 🧩 How It Works Internally (High-Level)
+# ⚙️ How It Works Internally (High-Level)
 
 ALCA operates through a clean, modular execution pipeline:
 
@@ -292,7 +302,7 @@ This modular pipeline ensures the system is:
 
 ---
 
-# 🚀 Quick Demonstration Guide
+# 🎯 Quick Demonstration Guide
 ### Start backend:
 ```bash
 python main.py
@@ -307,17 +317,6 @@ python demo_cli.py
 ```
 http://127.0.0.1:8000/api/memory/u1
 ```
-
----
-
-# 🤖 Gemini Explanation Examples
-**Binary Search**  
-• *Base:* "Binary search splits a sorted list in half…"  
-• *Gemini:* "Binary search efficiently narrows down a sorted list by repeatedly halving it, focusing only on the region where the target can exist."
-
-**Stacks**  
-• *Base:* "A stack allows insertion and removal from only one end."  
-• *Gemini:* "A stack follows the Last-In, First-Out rule—similar to stacking plates, where the newest plate is always removed first."
 
 ---
 
@@ -342,7 +341,7 @@ http://127.0.0.1:8000/api/topics
 Ensure dataset exists: `sample_content_expanded.json`.
 Run:
 ```
-p python evaluator.py sample_content_expanded.json
+python evaluator.py sample_content_expanded.json
 ```
 
 ### **Memory not updating?**
@@ -355,8 +354,19 @@ python main.py
 ```
 Then retry.
 
----
-### Start backend:
-```bash
-python main.py
 
+---
+
+# 💡 Gemini Explanation Examples
+**Binary Search**  
+• *Base:* "Binary search splits a sorted list in half…"  
+• *Gemini:* "Binary search efficiently narrows down a sorted list by repeatedly halving it, focusing only on the region where the target can exist."
+
+**Stacks**  
+• *Base:* "A stack allows insertion and removal from only one end."  
+• *Gemini:* "A stack follows the Last-In, First-Out rule—similar to stacking plates, where the newest plate is always removed first."
+
+---
+
+# 📄 License
+This project is licensed under the MIT License.
