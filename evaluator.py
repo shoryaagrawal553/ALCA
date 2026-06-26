@@ -1,16 +1,16 @@
-import json
-import time
-import random
+import json  
+import time 
+import random  
 import difflib
 import statistics
-from pathlib import Path
+from pathlib import Path 
 
 try:
     from agents import Orchestrator
-    from memory import MemoryManager
-except Exception:
+    from memory import MemoryManager  
+except Exception: 
     Orchestrator = None
-    MemoryManager = None
+    MemoryManager = None 
 
 
 def evaluate_answer(student_answer: str, correct_answer: str) -> bool:
